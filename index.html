@@ -2,18 +2,75 @@
 
 <head>
 	<meta charset="utf-8">
+
+	<link href="./style.css" type="text/css" rel="stylesheet" />
+
+	<link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet" />
+
 	<script>
+		let actions = {
+   			google: "https://www.google.com/",duckDuckGo: 'https://duckduckgo.com/',bing:'https://www.bing.com/search',ask:'https://www.ask.com/web'
+		};
 		// TODO: create a handler
-    window.addEventListener("load", function(){
-        // TODO: register the handler
-    });
+
+	function setSearchEngine(){
+		const form = document.querySelector('form');
+		const query = document.getElementById('q');
+		const buttonSelected = document.querySelector('input[name = engine]:checked');
+	
+
+	const errorBox = document.getElementById('error-box');
+	const errorMsg = document.getElementById('error-msg');
+
+	if (query.value.trim() === ''){
+		errorMsg.innerHTML = 'Oops! You didn\'t enter anything to search for.';
+		errorBox.style.visibility = 'visible';
+		event.preventDefault();
+	}else if (!buttonSelected){
+		errorMsg.innerHTML = 'Oops! Which search engine do you want to use?';
+		errorBox.style.visibility = 'visible';
+		event.preventDefault();
+	}else{
+		errorBox.style.visibility = 'hidden';
+	}
+
+	let url = actions[buttonSelected.value];
+	form.action = url;
+}
+
+	window.addEventListener("load", function(){
+        const form= document.querySelector('form');
+		
+	form.addEventListener('submit', setSearchEngine);
+	});
+
 	</script>
 </head>
 
 <body>
 
-	<form id="searchForm">
+	<h1>Yay it works!!!</h1>
+
+ 
+
+	<div id="search-bar">
+  
+	  <p id="search-header">Work Already!!!!!!!!</p>
+
+	<form target="_blank">
     <!-- TODO: add form elements -->
+		<input id='q' type='text' name='q' />
+		<label><input type='radio' name='engine' value='google'/>Google</label>
+		<label><input type='radio' name="engine" value="duckDuckGo"/>DuckDuckGo</label>
+		<label><input type='radio' name="engine" value="bing"/>Bing</label>
+		<label><input type='radio' name="engine" value='ask'/>Ask</label>
+		<button id="submit" value="Go!">Go!</button>
 	</form>
+
+	</div>
+
+	<div id ='error-box'>
+		<p id="error-msg"></p>
+	</div>
 
 </body>
